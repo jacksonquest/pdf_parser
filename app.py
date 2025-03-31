@@ -81,7 +81,7 @@ def structure_extracted_data(extracted_data):
     
     response = client.chat.completions.create(
         model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-        max_tokens=5000,
+        max_tokens=8000,
         messages=[
             {"role": "user", "content": prompt + json.dumps(extracted_data, indent=4)}
         ],
@@ -141,15 +141,13 @@ def main():
 
             with st.expander("Output File:"):
                 # Step 5: Structure extracted data
-                structured_data = structure_extracted_data(json_data)
-
-                if structured_data:
+                try:
+                    structured_data = structure_extracted_data(json_data)
                     df = pd.read_json(io.StringIO(structured_data), orient='columns')
                     st.write("### Structured Financial Data")
                     st.dataframe(df)
                     st.session_state.df = df
-                    
-                else:
+                except:
                     st.write("Failed to structure data.")
             
         else:
