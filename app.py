@@ -76,12 +76,12 @@ def structure_extracted_data(extracted_data):
         }
     ]
     
-    If any information is missing, set the value as `null`. Do **not** include explanations or extra text. Only return a **valid JSON list**.
+    If any information is missing, set the value as `null`. Do not include explanations or extra text. Only return a valid JSON list.
     """
     
     response = client.chat.completions.create(
         model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-        max_tokens=8000,
+        max_tokens=5000,
         messages=[
             {"role": "user", "content": prompt + json.dumps(extracted_data, indent=4)}
         ],
